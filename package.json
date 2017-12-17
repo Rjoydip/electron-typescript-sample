@@ -1,0 +1,36 @@
+{
+  "name": "electron-typescript-sample",
+  "version": "1.0.0",
+  "description": "Sample for Electron + TypeScript App",
+  "main": "main.js",
+  "scripts": {
+    "start": "concurrently \"npm run build\" \"npm run electron\"",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "electron": "electron .",
+    "release": "./build.js --win --linux --osx",
+    "package": "concurrently \"npm run clean\" \"npm run build\" \"npm run package:all\"",
+    "clean": "concurrently \"npm run clean:dist\" \"npm run clean:package\"",
+    "clean:dist": "./node_modules/.bin/rimraf ./dist",
+    "clean:package": "./node_modules/.bin/rimraf ./package",
+    "clean:release": "./node_modules/.bin/rimraf ./release-builds",
+    "package:osx": "electron-packager ./ ETA --out=./package --platform=darwin --electron-version 1.7.9 --overwrite",
+    "package:linux": "electron-packager ./ ETA --out=./package --platform=linux --electron-version 1.7.9 --overwrite",
+    "package:win32": "electron-packager ./ ETA --out=./package --platform=win32 --electron-version 1.7.9 --overwrite",
+    "package:all": "npm run package:osx && npm run package:linux && npm run package:win32"
+  },
+  "author": "Joydip Roy (Rjoydip)",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^8.5.1",
+    "concurrently": "^3.5.1",
+    "electron": "^1.7.9",
+    "electron-packager": "^10.1.0",
+    "electron-winstaller": "^2.6.3",
+    "lodash": "^4.17.4",
+    "rimraf": "^2.5.4",
+    "ts-node": "^4.0.2",
+    "typescript": "^2.6.2",
+    "yargs": "^10.0.3"
+  }
+}
